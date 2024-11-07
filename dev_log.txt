@@ -1,3 +1,7 @@
 # 07/11/24
 Wrote a function to download the MNIST raw data. Next step is to write a function to process it so it is ready for model ingestion.
 
+To do:
+* Noticed python logging isn't working - should look into that 
+* write code to process raw MNIST data
+
