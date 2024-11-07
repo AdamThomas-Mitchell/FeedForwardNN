@@ -1,0 +1,3 @@
+# 07/11/24
+Wrote a function to download the MNIST raw data. Next step is to write a function to process it so it is ready for model ingestion.
+
