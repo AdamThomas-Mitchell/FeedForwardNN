@@ -36,7 +36,3 @@ def download_mnist():
                 logging.info('Retrying...')
             else:
                 logging.warning('Amount of downloaded data is less than the expected amount - data may not be correct')        
-    
-if __name__ == '__main__':
-    print('asefgaseg')
-    logging.error('plsaawef awegf waeg awerg ewg ')
