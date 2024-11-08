@@ -3,6 +3,8 @@ from urllib.request import urlretrieve
 from urllib.error import URLError, HTTPError, ContentTooShortError
 
 def download_mnist():
+    """Method to download MNIST raw data
+    """
     TRAIN_IMAGES_ADDRESS = 'https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz'
     TRAIN_LABELS_ADDRESS = 'https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz'
     TEST_IMAGES_ADDRESS = 'https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz'
@@ -12,6 +14,7 @@ def download_mnist():
     logging.info('Downloading MNIST raw data...')
     for retry_attempt in range(MAX_ATTEMPTS):
         try:
+            # TODO: should I have a separate function for general urlretrive from given url?
             urlretrieve(TRAIN_IMAGES_ADDRESS, 'src/datasets/mnist/raw/train-images-idx3-ubyte.gz')
             urlretrieve(TRAIN_LABELS_ADDRESS, 'src/datasets/mnist/raw/train-labels-idx3-ubyte.gz')
             urlretrieve(TEST_IMAGES_ADDRESS, 'src/datasets/mnist/raw/test-images-idx3-ubyte.gz')
