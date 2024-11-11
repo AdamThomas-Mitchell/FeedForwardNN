@@ -5,3 +5,7 @@ To do:
 * Noticed python logging isn't working - should look into that 
 * write code to process raw MNIST data
 
+# 11/11/24
+Rewrote the code for downloading raw MNIST data so it was more modular. Spent sometime looking into processing the raw data. Have a pretty good idea how to do this now. 
+I should save the processed data as a numpy file so it can be quickly and easily read in by the model.
+
