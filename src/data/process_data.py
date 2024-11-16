@@ -1,4 +1,5 @@
 import gzip
+import logging
 import numpy as np
 
 
@@ -9,11 +10,13 @@ def extract_mnist_labels(raw_data_path: str, processed_data_path: str) -> None:
         raw_data_path (str): path to raw MNIST labels data file
         processed_data_path (str): path to save np array containing labels 
     """
+    logging.info(f'Extracting labels from {raw_data_path}...')
     with gzip.open(raw_data_path, 'rb') as f:
         f.seek(8)
         labels_bytes = f.read()
     labels_arr = np.array(list(labels_bytes), dtype=np.uint8).flatten()
     np.save(processed_data_path, labels_arr)
+    logging.info(f'Saved labels from {raw_data_path} as np.array to {processed_data_path}')
     
 def extract_mnist_images(raw_data_path: str, processed_data_path: str) -> None:
     """Extracts images from raw MNIST image data file and saves to np array
@@ -22,6 +25,7 @@ def extract_mnist_images(raw_data_path: str, processed_data_path: str) -> None:
         raw_data_path (str): path to raw MNIST image data file
         processed_data_path (str): path to save np array containing (flattened) image arrays 
     """
+    logging.info(f'Extracting images from {raw_data_path}...')
     img_list = [] 
     with gzip.open(raw_data_path, 'rb') as f:
         f.seek(8)
@@ -34,6 +38,7 @@ def extract_mnist_images(raw_data_path: str, processed_data_path: str) -> None:
         
     images_arr = np.array(img_list)
     np.save(processed_data_path, images_arr)
+    logging.info(f'Saved images from {raw_data_path} as np.array to {processed_data_path}')
         
 def process_mnist() -> None:
     """Process raw MNIST data into np arrays that are ready to be used for model training/testing
@@ -48,6 +53,7 @@ def process_mnist() -> None:
     PROCESSED_TRAIN_LABELS_PATH = 'src/datasets/mnist/processed/train-labels.npy'
     PROCESSED_TEST_LABELS_PATH = 'src/datasets/mnist/processed/test-labels.npy'
     
+    logging.info('Processing raw MNIST data...')
     extract_mnist_images(RAW_TRAIN_IMAGES_PATH, PROCESSED_TRAIN_IMAGES_PATH)
     extract_mnist_images(RAW_TEST_IMAGES_PATH, PROCESSED_TEST_IMAGES_PATH)
     extract_mnist_labels(RAW_TRAIN_LABELS_PATH, PROCESSED_TRAIN_LABELS_PATH)

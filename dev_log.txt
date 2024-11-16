@@ -9,3 +9,14 @@ To do:
 Rewrote the code for downloading raw MNIST data so it was more modular. Spent sometime looking into processing the raw data. Have a pretty good idea how to do this now. 
 I should save the processed data as a numpy file so it can be quickly and easily read in by the model.
 
+# 16/11/24
+Wrote functions to process the raw MNIST data and save it as npy file in the required format.
+This should make it easy to just load in the data when training the model or testing performance.
+Currently writing this such that the process can be seen as a Directed Acyclic Graph (DAG).
+Might want to look into CMake for running the individual processes. 
+
+To do:
+* fix python logging - still haven't done this 
+* Verify processed data is actually correct - more generally, unit tests??
+* start developing model - architecture and forward pass will be the first step 
+

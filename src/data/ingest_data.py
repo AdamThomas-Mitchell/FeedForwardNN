@@ -44,8 +44,13 @@ def download_mnist() -> None:
     TEST_IMAGES_ADDRESS = 'https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz'
     TEST_LABELS_ADDRESS = 'https://storage.googleapis.com/cvdf-datasets/mnist/t10k-labels-idx1-ubyte.gz'
     
+    RAW_TRAIN_IMAGES_PATH = 'src/datasets/mnist/raw/train-images-idx3-ubyte.gz'
+    RAW_TRAIN_LABELS_PATH = 'src/datasets/mnist/raw/train-labels-idx1-ubyte.gz'
+    RAW_TEST_IMAGES_PATH = 'src/datasets/mnist/raw/test-images-idx3-ubyte.gz'
+    RAW_TEST_LABELS_PATH = 'src/datasets/mnist/raw/test-labels-idx1-ubyte.gz'
+    
     logging.info('Downloading MNIST raw data...')
-    download_from_url(TRAIN_IMAGES_ADDRESS, 'src/datasets/mnist/raw/train-images-idx3-ubyte.gz')
-    download_from_url(TRAIN_LABELS_ADDRESS, 'src/datasets/mnist/raw/train-labels-idx1-ubyte.gz')
-    download_from_url(TEST_IMAGES_ADDRESS, 'src/datasets/mnist/raw/test-images-idx3-ubyte.gz')
-    download_from_url(TEST_LABELS_ADDRESS, 'src/datasets/mnist/raw/test-labels-idx1-ubyte.gz')       
+    download_from_url(TRAIN_IMAGES_ADDRESS, RAW_TRAIN_IMAGES_PATH)
+    download_from_url(TRAIN_LABELS_ADDRESS, RAW_TRAIN_LABELS_PATH)
+    download_from_url(TEST_IMAGES_ADDRESS, RAW_TEST_IMAGES_PATH)
+    download_from_url(TEST_LABELS_ADDRESS, RAW_TEST_LABELS_PATH)       
