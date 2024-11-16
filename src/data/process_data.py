@@ -1,26 +1,54 @@
 import gzip
 import numpy as np
-import matplotlib.pyplot as plt 
 
-TEST_IMAGES_PATH = 'src/datasets/mnist/raw/test-images-idx3-ubyte.gz'
-TEST_LABELS_PATH = 'src/datasets/mnist/raw/test-labels-idx3-ubyte.gz'
-IMAGE_SIZE = 28
 
-with gzip.open(TEST_IMAGES_PATH, 'rb') as f:
-    magic_number = int.from_bytes(f.read(4), 'big')
-    sample_count = int.from_bytes(f.read(4), 'big')
-    print(magic_number)
-    print(sample_count)
-    # f.read(16)
-    # buffer = f.read(IMAGE_SIZE * IMAGE_SIZE)
-    # data = np.frombuffer(buffer, dtype=np.uint8).astype(np.uint32)
-    # data = data.reshape(1, IMAGE_SIZE, IMAGE_SIZE, 1)
+def extract_mnist_labels(raw_data_path: str, processed_data_path: str) -> None:
+    """Extracts labels from raw MNIST labels data file and saves to np array
+
+    Args:
+        raw_data_path (str): path to raw MNIST labels data file
+        processed_data_path (str): path to save np array containing labels 
+    """
+    with gzip.open(raw_data_path, 'rb') as f:
+        f.seek(8)
+        labels_bytes = f.read()
+    labels_arr = np.array(list(labels_bytes), dtype=np.uint8).flatten()
+    np.save(processed_data_path, labels_arr)
     
-    # print(data)
-    # print(data.shape)
-    # print(data[0])
-    # print(data[0].shape)
-    # print(data[0].squeeze())
-    # print(data[0].squeeze().shape)
-    # plt.imshow(data[0].squeeze())
-    # plt.show()
+def extract_mnist_images(raw_data_path: str, processed_data_path: str) -> None:
+    """Extracts images from raw MNIST image data file and saves to np array
+
+    Args:
+        raw_data_path (str): path to raw MNIST image data file
+        processed_data_path (str): path to save np array containing (flattened) image arrays 
+    """
+    img_list = [] 
+    with gzip.open(raw_data_path, 'rb') as f:
+        f.seek(8)
+        num_rows = int.from_bytes(bytes=f.read(4), byteorder='big', signed=False)
+        num_cols = int.from_bytes(bytes=f.read(4), byteorder='big', signed=False)
+        buffer_size = num_rows * num_cols
+        while chunk := f.read(buffer_size):
+            img_arr = np.array(list(chunk), dtype=np.uint8)
+            img_list.append(img_arr)
+        
+    images_arr = np.array(img_list)
+    np.save(processed_data_path, images_arr)
+        
+def process_mnist() -> None:
+    """Process raw MNIST data into np arrays that are ready to be used for model training/testing
+    """
+    RAW_TRAIN_IMAGES_PATH = 'src/datasets/mnist/raw/train-images-idx3-ubyte.gz'
+    RAW_TEST_IMAGES_PATH = 'src/datasets/mnist/raw/test-images-idx3-ubyte.gz'
+    RAW_TRAIN_LABELS_PATH = 'src/datasets/mnist/raw/train-labels-idx1-ubyte.gz'
+    RAW_TEST_LABELS_PATH = 'src/datasets/mnist/raw/test-labels-idx1-ubyte.gz'
+    
+    PROCESSED_TRAIN_IMAGES_PATH = 'src/datasets/mnist/processed/train-images.npy'
+    PROCESSED_TEST_IMAGES_PATH = 'src/datasets/mnist/processed/test-images.npy'
+    PROCESSED_TRAIN_LABELS_PATH = 'src/datasets/mnist/processed/train-labels.npy'
+    PROCESSED_TEST_LABELS_PATH = 'src/datasets/mnist/processed/test-labels.npy'
+    
+    extract_mnist_images(RAW_TRAIN_IMAGES_PATH, PROCESSED_TRAIN_IMAGES_PATH)
+    extract_mnist_images(RAW_TEST_IMAGES_PATH, PROCESSED_TEST_IMAGES_PATH)
+    extract_mnist_labels(RAW_TRAIN_LABELS_PATH, PROCESSED_TRAIN_LABELS_PATH)
+    extract_mnist_labels(RAW_TEST_LABELS_PATH, PROCESSED_TEST_LABELS_PATH)

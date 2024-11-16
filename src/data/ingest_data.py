@@ -36,7 +36,7 @@ def download_from_url(url: str, file_path: str, max_attempts: int = 3) -> None:
             else:
                 logging.warning(f'Amount of downloaded data from {url} is less than the expected amount - data may not be correct')
 
-def download_mnist():
+def download_mnist() -> None:
     """Download the 4 raw data files for the MNIST dataset - train images, train labels, test images, test labels
     """
     TRAIN_IMAGES_ADDRESS = 'https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz'
@@ -46,6 +46,6 @@ def download_mnist():
     
     logging.info('Downloading MNIST raw data...')
     download_from_url(TRAIN_IMAGES_ADDRESS, 'src/datasets/mnist/raw/train-images-idx3-ubyte.gz')
-    download_from_url(TRAIN_LABELS_ADDRESS, 'src/datasets/mnist/raw/train-labels-idx3-ubyte.gz')
+    download_from_url(TRAIN_LABELS_ADDRESS, 'src/datasets/mnist/raw/train-labels-idx1-ubyte.gz')
     download_from_url(TEST_IMAGES_ADDRESS, 'src/datasets/mnist/raw/test-images-idx3-ubyte.gz')
-    download_from_url(TEST_LABELS_ADDRESS, 'src/datasets/mnist/raw/test-labels-idx3-ubyte.gz')       
+    download_from_url(TEST_LABELS_ADDRESS, 'src/datasets/mnist/raw/test-labels-idx1-ubyte.gz')       
