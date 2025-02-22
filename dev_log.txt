@@ -20,3 +20,6 @@ To do:
 * Verify processed data is actually correct - more generally, unit tests??
 * start developing model - architecture and forward pass will be the first step 
 
+# 29/11/24
+Back to it. Want to focus on building the actual model now. Realistically that will involve reading up on theory beforehand. 
+Text book Deep Learning by Ian Goodfellow, Yoshua Bengio and Aaron Courville looks to be really useful/interesting. I'm going to look into Part 2, chapter 6 on FFNN tonight.
